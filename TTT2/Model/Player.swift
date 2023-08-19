@@ -15,7 +15,7 @@ enum Player: Codable {
     var name: String {
         switch self {
         case .player1:
-            return "You"
+            return "Player 1"
         case .player2:
             return "Player 2"
         case .cpu:

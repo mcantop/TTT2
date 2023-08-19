@@ -92,12 +92,6 @@ private extension GameViewModel {
         return moves.contains(where: { $0?.position == position })
     }
     
-    func switchPlayer() {
-        if let nextPlayer = players.first(where: { $0 != currentPlayer}) {
-            currentPlayer = nextPlayer
-        }
-    }
-    
     func isGameOver() -> Bool {
         if didWon() {
             increaseScore()
@@ -125,6 +119,12 @@ private extension GameViewModel {
     func didDraw() -> Bool {
         /// If it doesn't contain nils, that means all moves has been occupied and no more turns are left.
         return !moves.contains(where: { $0 == nil})
+    }
+    
+    func switchPlayer() {
+        if let nextPlayer = players.first(where: { $0 != currentPlayer}) {
+            currentPlayer = nextPlayer
+        }
     }
     
     func increaseScore() {
@@ -212,7 +212,7 @@ private extension GameViewModel {
                 let winPosition = winPositions.first,
                 winPositions.count == 1 && !isOccupied(position: winPosition)
             {
-                return winPositions.first
+                return winPosition
             }
         }
         
