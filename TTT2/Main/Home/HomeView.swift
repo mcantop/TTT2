@@ -21,22 +21,23 @@ struct HomeView: View {
     @State private var gameMode: GameMode?
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: .zero) {
             titleView
-            
-            Spacer()
-            
+                .frame(maxHeight: .infinity)
+                                    
             selectGameModeView
+                .frame(maxHeight: .infinity)
         }
-        .padding(.vertical)
         .fullScreenCover(item: $gameMode) { mode in
-            GameView(gameMode: mode)
+            let viewModel = GameViewModel(gameMode: mode)
+            
+            GameView(viewModel: viewModel)
         }
     }
-    
+        
     private var titleView: some View {
         HStack(spacing: 12) {
-            Image(systemName: "number")
+            SFSymbol.number.image
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(maxHeight: .infinity)
@@ -55,7 +56,7 @@ struct HomeView: View {
     
     private var selectGameModeView: some View {
         VStack(spacing: 24) {
-            Text("Choose your game mode")
+            Text("Which game mode do you want to play?")
                 .font(.headline)
             
             ForEach(GameMode.allCases) { mode in

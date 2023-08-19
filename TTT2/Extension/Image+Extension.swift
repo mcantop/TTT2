@@ -15,8 +15,18 @@ extension Image {
         case cpu
         case network
         
+        case number
+        case hand_point_up_left
+        case hand_point_up_left_fill
+        
+        case trophy
+        
         var image: Image {
-            return Image(systemName: self.rawValue)
+            return Image(systemName: self.rawValueWithoutDashes)
+        }
+        
+        private var rawValueWithoutDashes: String {
+            return self.rawValue.replacingOccurrences(of: "_", with: ".")
         }
     }
 }

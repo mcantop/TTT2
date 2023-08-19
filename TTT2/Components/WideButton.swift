@@ -20,10 +20,6 @@ struct WideButton: View {
         self.action = action
     }
     
-    private var backgroundColor: Color {
-        return colorScheme == .light ? .cyan : .blue
-    }
-    
     var body: some View {
         Button {
             action()
@@ -39,11 +35,13 @@ struct WideButton: View {
             .fontWeight(.semibold)
             .fontDesign(.rounded)
             .tracking(2)
-            .foregroundColor(.primary)
             .padding(.vertical)
             .frame(maxWidth: .infinity)
-            .background(backgroundColor.opacity(0.87))
+            .background(.ultraThickMaterial)
             .clipShape(Capsule())
+            .overlay(
+                Capsule().stroke(lineWidth: 3)
+            )
         }
     }
 }
