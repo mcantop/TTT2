@@ -9,11 +9,21 @@ import SwiftUI
 import Combine
 
 final class GameViewModel: ObservableObject {
+    // MARK: - Online Game Properties
+    @Published private(set) var showingLoadingIndicator = false
+    @Published private(set) var gameOnline: GameOnline?
+    let onlineRepository = OnlineGameRepository()
+    private var subscriptions: Set<AnyCancellable> = []
+    
     // MARK: - Properties
-    @Published var presentingAlert = false
+    @Published var presentingAlert = false {
+        didSet {
+            print("[DEBUG] didSet presentingAlert \(presentingAlert)")
+        }
+    }
     @Published private(set) var alertItem: AlertItem? {
         didSet {
-            presentingAlert.toggle()
+            presentingAlert = true
         }
     }
     @Published private(set) var isGameBoardDisabled = false
@@ -24,7 +34,7 @@ final class GameViewModel: ObservableObject {
     @Published private(set) var player2Score = 0
     @Published private(set) var currentPlayer: Player = .player1
     @Published var players: [Player] = [.player1]
-    
+
     let columns: [GridItem] = [.init(spacing: 16), .init(spacing: 16), .init(spacing: 16)]
         
     var gameModeName: String {
@@ -44,10 +54,14 @@ final class GameViewModel: ObservableObject {
         self.gameMode = gameMode
         
         switch gameMode {
+        case .local:
+            players.append(.player2)
         case .cpu:
             players.append(.cpu)
-        case .local, .online:
+        case .online:
             players.append(.player2)
+            startOnlineGame()
+            observeOnlineUpdateLocal()
         }
     }
 }
@@ -75,6 +89,8 @@ extension GameViewModel {
             isGameBoardDisabled.toggle()
             cpuMove()
         }
+        
+        updateOnlineGame(process: .move)
     }
     
     func handleRematch() {
@@ -83,6 +99,18 @@ extension GameViewModel {
         withAnimation(.spring()) {
             moves = Array(repeating: nil, count: 9)
         }
+        
+        if gameMode == .online {
+            updateOnlineGame(process: .reset)
+        } else {
+            
+        }
+    }
+    
+    
+    func quitGame() {
+        shouldDismiss.toggle()
+        onlineRepository.quitGame()
     }
 }
 
@@ -96,11 +124,13 @@ private extension GameViewModel {
         if didWon() {
             increaseScore()
             presentAlert(for: .finished)
+            updateOnlineGame(process: .win)
             return true
         }
         
         if didDraw() {
             presentAlert(for: .draw)
+            updateOnlineGame(process: .draw)
             return true
         }
         
@@ -136,7 +166,9 @@ private extension GameViewModel {
     }
     
     func presentAlert(for gameState: GameState) {
-        var buttons: [AlertButton] = [.init(type: .quit) { self.shouldDismiss.toggle() }]
+        var buttons: [AlertButton] = [.init(type: .quit) {
+            self.quitGame()
+        }]
         
         if gameState != .playerQuit {
             buttons.insert(.init(type: .rematch) { self.handleRematch() }, at: 0)
@@ -147,6 +179,8 @@ private extension GameViewModel {
             message: gameState.createAlertMessage(for: currentPlayer),
             buttons: buttons
         )
+        
+        print("[DEBUG] presetAlert buttons \(buttons)")
     }
     
     func getMoves(for player: Player) -> [GameMove] {
@@ -217,5 +251,106 @@ private extension GameViewModel {
         }
         
         return nil
+    }
+}
+
+// MARK: - Private Online API
+private extension GameViewModel {
+    func observeOnlineUpdateLocal() {
+        onlineRepository.$gameOnline
+            .map { $0 }
+            .assign(to: &$gameOnline)
+        
+        $gameOnline
+            .map { $0?.moves ?? Array(repeating: nil, count: 9) }
+            .assign(to: &$moves)
+        
+        $gameOnline
+            .map { $0?.player1Score ?? 0 }
+            .assign(to: &$player1Score)
+        
+        $gameOnline
+            .map { $0?.player2Score ?? 0 }
+            .assign(to: &$player2Score)
+        
+        $gameOnline
+            .drop(while: { $0 == nil })
+            .map { $0?.player2Id == "" }
+            .assign(to: &$showingLoadingIndicator)
+        
+        $gameOnline
+            .drop(while: { $0 == nil })
+            .sink { updatedGame in
+                self.syncOnlineWithLocal(gameOnline: updatedGame)
+            }
+            .store(in: &subscriptions)
+    }
+    
+    func startOnlineGame() {
+        Task {
+            await onlineRepository.startOnlineGameFlow()
+        }
+    }
+    
+    func updateOnlineGame(process: GameOnlineProcess) {
+        guard var tempGame = gameOnline else { return }
+        
+        isGameBoardDisabled = localPlayerId != tempGame.currentPlayerId
+        
+        tempGame.currentPlayerId = tempGame.currentPlayerId == tempGame.player1Id
+        ? tempGame.player2Id
+        : tempGame.player1Id
+        
+        tempGame.player1Score = player1Score
+        tempGame.player2Score = player2Score
+        
+        switch process {
+        case .win:
+            tempGame.winningPlayerId = localPlayerId
+        case .draw:
+            tempGame.winningPlayerId = "0"
+            tempGame.currentPlayerId = tempGame.player1Id
+        case .reset:
+            tempGame.winningPlayerId = ""
+            tempGame.currentPlayerId = tempGame.player1Id
+        case .move:
+            break
+        }
+        
+        tempGame.moves = moves
+        onlineRepository.updateGame(tempGame)
+    }
+    
+    func syncOnlineWithLocal(gameOnline: GameOnline?) {
+        guard let gameOnline else {
+            /// If game is nil, show alert that other user left.
+            presentAlert(for: .playerQuit)
+            return
+        }
+
+        if gameOnline.winningPlayerId == "0" {
+            /// Draw.
+            presentAlert(for: .draw)
+        } else if gameOnline.winningPlayerId != "" {
+            /// Win.
+            presentAlert(for: .finished)
+        }
+
+        /// Disable board.
+        isGameBoardDisabled = gameOnline.player2Id.isEmpty ? true : localPlayerId != gameOnline.currentPlayerId
+        
+        switchPlayerOnline(gameOnline)
+    }
+    
+    func switchPlayerOnline(_ gameOnline: GameOnline) {
+        if localPlayerId == gameOnline.player1Id {
+            if localPlayerId == gameOnline.currentPlayerId {
+                currentPlayer = .player1
+            }
+        } else {
+            if localPlayerId == gameOnline.currentPlayerId {
+                currentPlayer = .player2
+            }
+        }
     }
 }

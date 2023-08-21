@@ -30,6 +30,17 @@ struct GameView: View {
                     .frame(maxHeight: .infinity)
                 
                 boardView
+                    .overlay(
+                        ZStack {
+                            Color.primary
+                            //                                .cornerRadius(50)
+                                .opacity(0.25)
+                            
+                            ProgressView()
+                                .controlSize(.large)
+                        }
+                            .opacity(viewModel.showingLoadingIndicator ? 1 : 0)
+                    )
                     .padding(.horizontal)
             }
             // MARK: - Alert
@@ -47,6 +58,12 @@ struct GameView: View {
             .onChange(of: viewModel.shouldDismiss) { _ in /// Passing dismiss value.
                 dismiss()
             }
+            // TODO: - FIX ALERT 
+            .onChange(of: viewModel.moves) { _ in
+                if viewModel.presentingAlert == true {
+                    viewModel.presentingAlert = false
+                }
+            }
             
             // MARK: - Toolbar
             .toolbar {
@@ -60,7 +77,7 @@ struct GameView: View {
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Quit") {
-                        dismiss()
+                        viewModel.quitGame()
                     }
                 }
             }
