@@ -22,7 +22,7 @@ struct GameView: View {
     @ObservedObject var viewModel: GameViewModel
     
     @Namespace private var playerTurnAnimation
-        
+    
     var body: some View {
         NavigationStack {
             VStack(spacing: .zero) {
@@ -30,21 +30,10 @@ struct GameView: View {
                     .frame(maxHeight: .infinity)
                 
                 boardView
-                    .overlay(
-                        ZStack {
-                            Color.primary
-                            //                                .cornerRadius(50)
-                                .opacity(0.25)
-                            
-                            ProgressView()
-                                .controlSize(.large)
-                        }
-                            .opacity(viewModel.showingLoadingIndicator ? 1 : 0)
-                    )
                     .padding(.horizontal)
             }
             // MARK: - Alert
-            .alert(viewModel.alertItem?.title ?? "", isPresented: $viewModel.presentingAlert) {                
+            .alert(viewModel.alertItem?.title ?? "", isPresented: $viewModel.presentingAlert) {
                 ForEach(viewModel.alertItem?.buttons ?? []) { button in
                     Button(role: button.role) {
                         button.action()
@@ -58,7 +47,7 @@ struct GameView: View {
             .onChange(of: viewModel.shouldDismiss) { _ in /// Passing dismiss value.
                 dismiss()
             }
-            // TODO: - FIX ALERT 
+            // TODO: - FIX ALERT
             .onChange(of: viewModel.moves) { _ in
                 if viewModel.presentingAlert == true {
                     viewModel.presentingAlert = false
@@ -105,18 +94,23 @@ struct GameView: View {
             }
             
             VStack(spacing: 6) {
-                Text(player.name)
-                    .fontWeight(.semibold)
+                let isPlayer1 = player == .player1
+                
+                Text(isPlayer1
+                     ? viewModel.player1Name
+                     : viewModel.player2Name
+                )
+                .fontWeight(.semibold)
                 
                 HStack {
-                    if player == .player1 {
-                        Text("\(player == .player1 ? viewModel.player1Score : viewModel.player2Score)")
+                    if isPlayer1 {
+                        Text(String(viewModel.player1Score))
                     }
                     
                     SFSymbol.trophy.image
                     
-                    if player != .player1 {
-                        Text("\(player == .player1 ? viewModel.player1Score : viewModel.player2Score)")
+                    if !isPlayer1 {
+                        Text(String(viewModel.player2Score))
                     }
                 }
             }
@@ -125,25 +119,40 @@ struct GameView: View {
     }
     
     private var boardView: some View {
-        LazyVGrid(columns: viewModel.columns, spacing: 16) {
-            ForEach(0..<9) { position in
-                Button {
-                    viewModel.processMove(position: position)
-                } label: {
-                    ZStack {
-                        Circle()
-                            .stroke(lineWidth: 3)
-                            .background(.ultraThickMaterial)
-                            .clipShape(Circle())
-                            .shadow(color: .primary.opacity(0.15), radius: 3)
-                        
+        ZStack(alignment: .top) {
+            if viewModel.showingLoadingIndicator {
+                Text("Waiting for other player to join..")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+                    .fontWeight(.semibold)
+                    .padding(.top, -32)
+            }
+            
+            LazyVGrid(columns: viewModel.columns, spacing: 16) {
+                ForEach(0..<9) { position in
+                    Button {
+                        viewModel.processMove(position: position)
+                    } label: {
+                        ZStack {
+                            Circle()
+                                .stroke(lineWidth: 3)
+                                .background(.ultraThickMaterial)
+                                .clipShape(Circle())
+                                .shadow(color: .primary.opacity(0.15), radius: 3)
+                            
                             BoardIndicatorView(imageName: viewModel.moves[position]?.type ?? "")
+                        }
                     }
                 }
             }
+            .overlay(
+                ProgressView()
+                    .controlSize(.large)
+                    .opacity(viewModel.showingLoadingIndicator ? 1 : 0)
+            )
+            .disabled(viewModel.isGameBoardDisabled)
+            .animation(.spring(), value: viewModel.isGameBoardDisabled)
         }
-        .disabled(viewModel.isGameBoardDisabled)
-        .animation(.spring(), value: viewModel.isGameBoardDisabled)
     }
 }
 

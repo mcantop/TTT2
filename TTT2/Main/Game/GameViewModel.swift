@@ -30,6 +30,8 @@ final class GameViewModel: ObservableObject {
     @Published private(set) var shouldDismiss = false
     @Published private(set) var gameMode: GameMode
     @Published private(set) var moves: [GameMove?] = Array(repeating: nil, count: 9)
+    @Published private(set) var player1Name = ""
+    @Published private(set) var player2Name = ""
     @Published private(set) var player1Score = 0
     @Published private(set) var player2Score = 0
     @Published private(set) var currentPlayer: Player = .player1
@@ -63,6 +65,8 @@ final class GameViewModel: ObservableObject {
             startOnlineGame()
             observeOnlineUpdateLocal()
         }
+        
+        assignPlayerNames()
     }
 }
 
@@ -188,6 +192,21 @@ private extension GameViewModel {
             .compactMap { $0 }
             .filter { $0.player == player }
     }
+    
+    func assignPlayerNames() {
+        
+        switch gameMode {
+        case .local:
+            player1Name = "Player 1"
+            player2Name = "Player 2"
+        case .cpu:
+            player1Name = "You"
+            player2Name = "CPU"
+        case .online:
+            player1Name = localPlayerId == gameOnline?.player1Id ? "You" : "Player 1"
+            player2Name = localPlayerId == gameOnline?.player2Id ? "You" : "Player 2"
+        }
+    }
 }
 
 // MARK: - Private CPU API
@@ -282,6 +301,20 @@ private extension GameViewModel {
             .drop(while: { $0 == nil })
             .sink { updatedGame in
                 self.syncOnlineWithLocal(gameOnline: updatedGame)
+            }
+            .store(in: &subscriptions)
+        
+        $gameOnline
+            .map { $0?.player1Id }
+            .sink { _ in
+                self.assignPlayerNames()
+            }
+            .store(in: &subscriptions)
+        
+        $gameOnline
+            .map { $0?.player2Id }
+            .sink { _ in
+                self.assignPlayerNames()
             }
             .store(in: &subscriptions)
     }
