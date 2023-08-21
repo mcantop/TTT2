@@ -35,7 +35,7 @@ struct GameView: View {
             // MARK: - Alert
             .alert(viewModel.alertItem?.title ?? "", isPresented: $viewModel.presentingAlert) {
                 ForEach(viewModel.alertItem?.buttons ?? []) { button in
-                    Button(role: button.role) {
+                    Button {
                         button.action()
                     } label: {
                         button.label
@@ -47,9 +47,10 @@ struct GameView: View {
             .onChange(of: viewModel.shouldDismiss) { _ in /// Passing dismiss value.
                 dismiss()
             }
-            // TODO: - FIX ALERT
-            .onChange(of: viewModel.moves) { _ in
-                if viewModel.presentingAlert == true {
+            /// Handling dismissing alert for the second player,
+            /// After the first one taps 'Rematch'.
+            .onChange(of: viewModel.gameOnline?.winningPlayerId) { newPlayerId in
+                if viewModel.presentingAlert && newPlayerId == "" {
                     viewModel.presentingAlert = false
                 }
             }

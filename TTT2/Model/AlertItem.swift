@@ -16,15 +16,6 @@ struct AlertButton: Identifiable {
     let id = UUID()
     let type: AlertButtonType
     let action: () -> Void
-    
-    var role: ButtonRole {
-        switch type {
-        case .quit:
-            return .destructive
-        default:
-            return .cancel
-        }
-    }
 
     var label: Text {
         return Text(type.rawValue.capitalized)

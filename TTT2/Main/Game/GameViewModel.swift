@@ -106,11 +106,8 @@ extension GameViewModel {
         
         if gameMode == .online {
             updateOnlineGame(process: .reset)
-        } else {
-            
         }
     }
-    
     
     func quitGame() {
         shouldDismiss.toggle()
@@ -194,7 +191,6 @@ private extension GameViewModel {
     }
     
     func assignPlayerNames() {
-        
         switch gameMode {
         case .local:
             player1Name = "Player 1"
@@ -304,15 +300,9 @@ private extension GameViewModel {
             }
             .store(in: &subscriptions)
         
+        /// Update player names.
         $gameOnline
-            .map { $0?.player1Id }
-            .sink { _ in
-                self.assignPlayerNames()
-            }
-            .store(in: &subscriptions)
-        
-        $gameOnline
-            .map { $0?.player2Id }
+            .map { $0?.player2Id ?? $0?.player1Id }
             .sink { _ in
                 self.assignPlayerNames()
             }
