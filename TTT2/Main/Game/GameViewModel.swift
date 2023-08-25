@@ -113,6 +113,30 @@ extension GameViewModel {
         shouldDismiss.toggle()
         onlineRepository.quitGame()
     }
+    
+    func presentAlert(for gameState: GameState) {
+        var buttons: [AlertButton] = [.init(type: .quit) {
+            self.quitGame()
+        }]
+        
+        if gameState != .playerQuit {
+            buttons.insert(.init(type: .rematch) { self.handleRematch() }, at: 0)
+        }
+        
+        let didCurrentLocalPlayerWin = localPlayerId == gameOnline?.currentPlayerId
+        
+        let alertStrings = gameState.createAlertStrings(
+            gameMode: gameMode,
+            currentPlayer: currentPlayer,
+            didLocalPlayerWin: didCurrentLocalPlayerWin
+        )
+        
+        self.alertItem = AlertItem(
+            title: alertStrings.title,
+            message: alertStrings.message,
+            buttons: buttons
+        )
+    }
 }
 
 // MARK: - Private API
@@ -124,14 +148,14 @@ private extension GameViewModel {
     func isGameOver() -> Bool {
         if didWon() {
             increaseScore()
-            presentAlert(for: .finished)
             updateOnlineGame(process: .win)
+            presentAlert(for: .finished)
             return true
         }
         
         if didDraw() {
-            presentAlert(for: .draw)
             updateOnlineGame(process: .draw)
+            presentAlert(for: .draw)
             return true
         }
         
@@ -164,24 +188,6 @@ private extension GameViewModel {
         } else {
             player2Score += 1
         }
-    }
-    
-    func presentAlert(for gameState: GameState) {
-        var buttons: [AlertButton] = [.init(type: .quit) {
-            self.quitGame()
-        }]
-        
-        if gameState != .playerQuit {
-            buttons.insert(.init(type: .rematch) { self.handleRematch() }, at: 0)
-        }
-        
-        self.alertItem = AlertItem(
-            title: gameState.createAlertTitle(for: currentPlayer),
-            message: gameState.createAlertMessage(for: currentPlayer),
-            buttons: buttons
-        )
-        
-        print("[DEBUG] presetAlert buttons \(buttons)")
     }
     
     func getMoves(for player: Player) -> [GameMove] {
@@ -347,7 +353,16 @@ private extension GameViewModel {
     func syncOnlineWithLocal(gameOnline: GameOnline?) {
         guard let gameOnline else {
             /// If game is nil, show alert that other user left.
-            presentAlert(for: .playerQuit)
+            
+            /// For edge case, when both players got the game finished alert
+            /// And one player taps on Quit
+            /// Reset alert properties
+            alertItem = nil
+            presentingAlert = false
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                self.presentAlert(for: .playerQuit)
+            }
             return
         }
 

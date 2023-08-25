@@ -76,7 +76,7 @@ struct GameView: View {
     
     private var statsView: some View {
         HStack(alignment: .bottom) {
-            ForEach(viewModel.players, id: \.self) { player in
+            ForEach(viewModel.players) { player in
                 playerStatsView(player)
                     .frame(maxWidth: .infinity)
             }

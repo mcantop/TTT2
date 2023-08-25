@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Player: Codable {
+enum Player: Identifiable, Codable {
     case player1
     case player2
     case cpu
@@ -21,5 +21,9 @@ enum Player: Codable {
         case .cpu:
             return "CPU"
         }
+    }
+    
+    var id: UUID {
+        return .init()
     }
 }

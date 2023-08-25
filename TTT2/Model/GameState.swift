@@ -7,45 +7,39 @@
 
 import Foundation
 
-enum GameState {
+enum GameState: Equatable {
     case finished
     case draw
     case waitingForPlayer
     case playerQuit
     
-    func createAlertTitle(for player: Player) -> String {
+    func createAlertStrings(gameMode: GameMode, currentPlayer: Player, didLocalPlayerWin: Bool?) -> (title: String, message: String) {
+        let title: String
+        let message: String
+        
         switch self {
         case .finished:
-            switch player {
-            case .player1:
-                return "You win!"
-            default:
-                return "\(player.name) wins!"
+            switch gameMode {
+            case .local, .cpu:
+                let isYou = currentPlayer == .player1 && gameMode == .cpu
+                title = isYou ? "You win!" : "\(currentPlayer.name) wins!"
+                message = isYou ? "You get a point." : "\(currentPlayer.name) gets a point."
+            case .online:
+                let didLocalPlayerWin = didLocalPlayerWin == true
+                title = didLocalPlayerWin ? "You win!" : "You lose!"
+                message = didLocalPlayerWin ? "You get a point." : "\(currentPlayer.name) gets a point."
             }
         case .draw:
-            return "It's a draw!"
+            title = "It's a draw!"
+            message = "Do you want to rematch?"
         case .waitingForPlayer:
-            return "Waiting.."
+            title = ""
+            message = ""
         case .playerQuit:
-            return "Player left the game.."
+            title = "Other player quit!"
+            message = "Please join another game."
         }
-    }
-    
-    func createAlertMessage(for player: Player) -> String {
-        switch self {
-        case .finished:
-            switch player {
-            case .player1:
-                return "You get one point."
-            default:
-                return "\(player.name) gets one point."
-            }
-        case .draw:
-            return "Try again?"
-        case .waitingForPlayer:
-            return "for an other player to join.."
-        case .playerQuit:
-            return "Please join another game room."
-        }
+        
+        return (title: title, message: message)
     }
 }
