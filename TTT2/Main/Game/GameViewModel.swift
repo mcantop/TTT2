@@ -12,7 +12,7 @@ final class GameViewModel: ObservableObject {
     // MARK: - Online Game Properties
     @Published private(set) var showingLoadingIndicator = false
     @Published private(set) var gameOnline: GameOnline?
-    let onlineRepository = OnlineGameRepository()
+    let onlineRepository: OnlineGameRepository
     private var subscriptions: Set<AnyCancellable> = []
     
     // MARK: - Properties
@@ -52,8 +52,9 @@ final class GameViewModel: ObservableObject {
     ]
     
     // MARK: - Init
-    init(gameMode: GameMode) {
+    init(gameMode: GameMode, onlineRepository: OnlineGameRepository) {
         self.gameMode = gameMode
+        self.onlineRepository = onlineRepository
         
         switch gameMode {
         case .local:
@@ -131,7 +132,7 @@ extension GameViewModel {
             didLocalPlayerWin: didCurrentLocalPlayerWin
         )
         
-        self.alertItem = AlertItem(
+        alertItem = AlertItem(
             title: alertStrings.title,
             message: alertStrings.message,
             buttons: buttons
@@ -205,6 +206,9 @@ private extension GameViewModel {
             player1Name = "You"
             player2Name = "CPU"
         case .online:
+            let localPlayerId = localPlayerId
+            let id1 = gameOnline?.player1Id
+            let id2 = gameOnline?.player2Id
             player1Name = localPlayerId == gameOnline?.player1Id ? "You" : "Player 1"
             player2Name = localPlayerId == gameOnline?.player2Id ? "You" : "Player 2"
         }

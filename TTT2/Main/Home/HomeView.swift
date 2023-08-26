@@ -29,7 +29,10 @@ struct HomeView: View {
                 .frame(maxHeight: .infinity)
         }
         .fullScreenCover(item: $gameMode) { mode in
-            let viewModel = GameViewModel(gameMode: mode)
+            let viewModel = GameViewModel(
+                gameMode: mode,
+                onlineRepository: OnlineGameRepository()
+            )
             
             GameView(viewModel: viewModel)
         }

@@ -1,0 +1,29 @@
+{
+  "configurations" : [
+    {
+      "id" : "9FDE28C0-15C0-4A63-8CBB-95CEE05B15DE",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:TTT2.xcodeproj",
+      "identifier" : "52C73DE02A8CF34B00C69333",
+      "name" : "TTT2"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:TTT2.xcodeproj",
+        "identifier" : "52C73DF02A8CF34C00C69333",
+        "name" : "TTT2Tests"
+      }
+    }
+  ],
+  "version" : 1
+}

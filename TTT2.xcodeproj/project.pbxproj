@@ -17,6 +17,10 @@
 		523D831B2A918CAE00C05926 /* FirebaseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523D831A2A918CAE00C05926 /* FirebaseRepository.swift */; };
 		523D831D2A9194C900C05926 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523D831C2A9194C900C05926 /* AppError.swift */; };
 		523D831F2A91964400C05926 /* OnlineGameRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523D831E2A91964400C05926 /* OnlineGameRepository.swift */; };
+		528AADD32A9976FB005D1D3E /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 528AADD22A9976FB005D1D3E /* FirebaseFirestoreSwift */; };
+		528AADD52A99861A005D1D3E /* MockFirebaseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528AADD42A99861A005D1D3E /* MockFirebaseRepository.swift */; };
+		528AADD72A9987DA005D1D3E /* FactorySetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528AADD62A9987DA005D1D3E /* FactorySetup.swift */; };
+		528AADD92A998865005D1D3E /* OnlineGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528AADD82A998865005D1D3E /* OnlineGameTests.swift */; };
 		52A399422A922666006ACE63 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 52A399412A922666006ACE63 /* Factory */; };
 		52A399442A9226D0006ACE63 /* ServiceDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A399432A9226D0006ACE63 /* ServiceDependencies.swift */; };
 		52A399462A925F17006ACE63 /* GameOnlineProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A399452A925F17006ACE63 /* GameOnlineProcess.swift */; };
@@ -27,9 +31,7 @@
 		52C73DE72A8CF34B00C69333 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C73DE62A8CF34B00C69333 /* HomeView.swift */; };
 		52C73DE92A8CF34C00C69333 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52C73DE82A8CF34C00C69333 /* Assets.xcassets */; };
 		52C73DEC2A8CF34C00C69333 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52C73DEB2A8CF34C00C69333 /* Preview Assets.xcassets */; };
-		52C73DF62A8CF34C00C69333 /* TTT2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C73DF52A8CF34C00C69333 /* TTT2Tests.swift */; };
-		52C73E002A8CF34C00C69333 /* TTT2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C73DFF2A8CF34C00C69333 /* TTT2UITests.swift */; };
-		52C73E022A8CF34C00C69333 /* TTT2UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C73E012A8CF34C00C69333 /* TTT2UITestsLaunchTests.swift */; };
+		52C73DF62A8CF34C00C69333 /* GameViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C73DF52A8CF34C00C69333 /* GameViewModelTests.swift */; };
 		52C73E112A8CF8CC00C69333 /* WideButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C73E102A8CF8CC00C69333 /* WideButton.swift */; };
 		52C73E142A8CFB4300C69333 /* Image+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C73E132A8CFB4300C69333 /* Image+Extension.swift */; };
 		52C73E1A2A8D01CE00C69333 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C73E192A8D01CE00C69333 /* GameView.swift */; };
@@ -39,13 +41,6 @@
 
 /* Begin PBXContainerItemProxy section */
 		52C73DF22A8CF34C00C69333 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 52C73DD92A8CF34B00C69333 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 52C73DE02A8CF34B00C69333;
-			remoteInfo = TTT2;
-		};
-		52C73DFC2A8CF34C00C69333 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 52C73DD92A8CF34B00C69333 /* Project object */;
 			proxyType = 1;
@@ -63,6 +58,9 @@
 		523D831A2A918CAE00C05926 /* FirebaseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRepository.swift; sourceTree = "<group>"; };
 		523D831C2A9194C900C05926 /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		523D831E2A91964400C05926 /* OnlineGameRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineGameRepository.swift; sourceTree = "<group>"; };
+		528AADD42A99861A005D1D3E /* MockFirebaseRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFirebaseRepository.swift; sourceTree = "<group>"; };
+		528AADD62A9987DA005D1D3E /* FactorySetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactorySetup.swift; sourceTree = "<group>"; };
+		528AADD82A998865005D1D3E /* OnlineGameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineGameTests.swift; sourceTree = "<group>"; };
 		52A399432A9226D0006ACE63 /* ServiceDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceDependencies.swift; sourceTree = "<group>"; };
 		52A399452A925F17006ACE63 /* GameOnlineProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOnlineProcess.swift; sourceTree = "<group>"; };
 		52A9E42B2A8ED51C00414E8D /* BoardIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardIndicatorView.swift; sourceTree = "<group>"; };
@@ -74,15 +72,13 @@
 		52C73DE82A8CF34C00C69333 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		52C73DEB2A8CF34C00C69333 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		52C73DF12A8CF34C00C69333 /* TTT2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TTT2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		52C73DF52A8CF34C00C69333 /* TTT2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTT2Tests.swift; sourceTree = "<group>"; };
-		52C73DFB2A8CF34C00C69333 /* TTT2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TTT2UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		52C73DFF2A8CF34C00C69333 /* TTT2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTT2UITests.swift; sourceTree = "<group>"; };
-		52C73E012A8CF34C00C69333 /* TTT2UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTT2UITestsLaunchTests.swift; sourceTree = "<group>"; };
+		52C73DF52A8CF34C00C69333 /* GameViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModelTests.swift; sourceTree = "<group>"; };
 		52C73E102A8CF8CC00C69333 /* WideButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WideButton.swift; sourceTree = "<group>"; };
 		52C73E132A8CFB4300C69333 /* Image+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Extension.swift"; sourceTree = "<group>"; };
 		52C73E192A8D01CE00C69333 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		52C73E1C2A8D020500C69333 /* GameMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMode.swift; sourceTree = "<group>"; };
 		52C73E232A8D296D00C69333 /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
+		52F4D1AC2A99964F004483D0 /* TTT2.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TTT2.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,26 +96,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		52C73DF82A8CF34C00C69333 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				528AADD32A9976FB005D1D3E /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		520F8C252A99763D00172E4C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		52C73DD82A8CF34B00C69333 = {
 			isa = PBXGroup;
 			children = (
 				52C73DE32A8CF34B00C69333 /* TTT2 */,
 				52C73DF42A8CF34C00C69333 /* TTT2Tests */,
-				52C73DFE2A8CF34C00C69333 /* TTT2UITests */,
 				52C73DE22A8CF34B00C69333 /* Products */,
+				520F8C252A99763D00172E4C /* Frameworks */,
+				52F4D1AC2A99964F004483D0 /* TTT2.xctestplan */,
 			);
 			sourceTree = "<group>";
 		};
@@ -128,7 +126,6 @@
 			children = (
 				52C73DE12A8CF34B00C69333 /* TTT2.app */,
 				52C73DF12A8CF34C00C69333 /* TTT2Tests.xctest */,
-				52C73DFB2A8CF34C00C69333 /* TTT2UITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -138,6 +135,7 @@
 			children = (
 				52C73E1E2A8D294D00C69333 /* App */,
 				52C73E1F2A8D295000C69333 /* Main */,
+				52F4D1AD2A99971F004483D0 /* Service */,
 				52C73E0F2A8CF8BB00C69333 /* Components */,
 				52C73E1B2A8D01EB00C69333 /* Model */,
 				52C73E122A8CFB2700C69333 /* Utils */,
@@ -159,18 +157,11 @@
 		52C73DF42A8CF34C00C69333 /* TTT2Tests */ = {
 			isa = PBXGroup;
 			children = (
-				52C73DF52A8CF34C00C69333 /* TTT2Tests.swift */,
+				528AADD62A9987DA005D1D3E /* FactorySetup.swift */,
+				52C73DF52A8CF34C00C69333 /* GameViewModelTests.swift */,
+				528AADD82A998865005D1D3E /* OnlineGameTests.swift */,
 			);
 			path = TTT2Tests;
-			sourceTree = "<group>";
-		};
-		52C73DFE2A8CF34C00C69333 /* TTT2UITests */ = {
-			isa = PBXGroup;
-			children = (
-				52C73DFF2A8CF34C00C69333 /* TTT2UITests.swift */,
-				52C73E012A8CF34C00C69333 /* TTT2UITestsLaunchTests.swift */,
-			);
-			path = TTT2UITests;
 			sourceTree = "<group>";
 		};
 		52C73E0F2A8CF8BB00C69333 /* Components */ = {
@@ -186,10 +177,6 @@
 			isa = PBXGroup;
 			children = (
 				52C73E132A8CFB4300C69333 /* Image+Extension.swift */,
-				523D83182A918BA400C05926 /* FirebaseCollectionRef.swift */,
-				523D831A2A918CAE00C05926 /* FirebaseRepository.swift */,
-				523D831E2A91964400C05926 /* OnlineGameRepository.swift */,
-				52A399432A9226D0006ACE63 /* ServiceDependencies.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -243,6 +230,18 @@
 			path = Game;
 			sourceTree = "<group>";
 		};
+		52F4D1AD2A99971F004483D0 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				523D831E2A91964400C05926 /* OnlineGameRepository.swift */,
+				52A399432A9226D0006ACE63 /* ServiceDependencies.swift */,
+				523D83182A918BA400C05926 /* FirebaseCollectionRef.swift */,
+				523D831A2A918CAE00C05926 /* FirebaseRepository.swift */,
+				528AADD42A99861A005D1D3E /* MockFirebaseRepository.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -282,27 +281,12 @@
 				52C73DF32A8CF34C00C69333 /* PBXTargetDependency */,
 			);
 			name = TTT2Tests;
+			packageProductDependencies = (
+				528AADD22A9976FB005D1D3E /* FirebaseFirestoreSwift */,
+			);
 			productName = TTT2Tests;
 			productReference = 52C73DF12A8CF34C00C69333 /* TTT2Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		52C73DFA2A8CF34C00C69333 /* TTT2UITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 52C73E0B2A8CF34C00C69333 /* Build configuration list for PBXNativeTarget "TTT2UITests" */;
-			buildPhases = (
-				52C73DF72A8CF34C00C69333 /* Sources */,
-				52C73DF82A8CF34C00C69333 /* Frameworks */,
-				52C73DF92A8CF34C00C69333 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				52C73DFD2A8CF34C00C69333 /* PBXTargetDependency */,
-			);
-			name = TTT2UITests;
-			productName = TTT2UITests;
-			productReference = 52C73DFB2A8CF34C00C69333 /* TTT2UITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -318,10 +302,6 @@
 						CreatedOnToolsVersion = 14.3;
 					};
 					52C73DF02A8CF34C00C69333 = {
-						CreatedOnToolsVersion = 14.3;
-						TestTargetID = 52C73DE02A8CF34B00C69333;
-					};
-					52C73DFA2A8CF34C00C69333 = {
 						CreatedOnToolsVersion = 14.3;
 						TestTargetID = 52C73DE02A8CF34B00C69333;
 					};
@@ -346,7 +326,6 @@
 			targets = (
 				52C73DE02A8CF34B00C69333 /* TTT2 */,
 				52C73DF02A8CF34C00C69333 /* TTT2Tests */,
-				52C73DFA2A8CF34C00C69333 /* TTT2UITests */,
 			);
 		};
 /* End PBXProject section */
@@ -363,13 +342,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		52C73DEF2A8CF34C00C69333 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		52C73DF92A8CF34C00C69333 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -401,6 +373,7 @@
 				52A399442A9226D0006ACE63 /* ServiceDependencies.swift in Sources */,
 				523D830C2A90F5A700C05926 /* GameState.swift in Sources */,
 				52A9E42E2A8EDA6C00414E8D /* Player.swift in Sources */,
+				528AADD52A99861A005D1D3E /* MockFirebaseRepository.swift in Sources */,
 				52C73E242A8D296D00C69333 /* GameViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -409,16 +382,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52C73DF62A8CF34C00C69333 /* TTT2Tests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		52C73DF72A8CF34C00C69333 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				52C73E022A8CF34C00C69333 /* TTT2UITestsLaunchTests.swift in Sources */,
-				52C73E002A8CF34C00C69333 /* TTT2UITests.swift in Sources */,
+				528AADD92A998865005D1D3E /* OnlineGameTests.swift in Sources */,
+				528AADD72A9987DA005D1D3E /* FactorySetup.swift in Sources */,
+				52C73DF62A8CF34C00C69333 /* GameViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,11 +395,6 @@
 			isa = PBXTargetDependency;
 			target = 52C73DE02A8CF34B00C69333 /* TTT2 */;
 			targetProxy = 52C73DF22A8CF34C00C69333 /* PBXContainerItemProxy */;
-		};
-		52C73DFD2A8CF34C00C69333 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 52C73DE02A8CF34B00C69333 /* TTT2 */;
-			targetProxy = 52C73DFC2A8CF34C00C69333 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -654,42 +615,6 @@
 			};
 			name = Release;
 		};
-		52C73E0C2A8CF34C00C69333 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = QZ46JW4C9U;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = top.maciejcan.TTT2UITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = TTT2;
-			};
-			name = Debug;
-		};
-		52C73E0D2A8CF34C00C69333 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = QZ46JW4C9U;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = top.maciejcan.TTT2UITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = TTT2;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -716,15 +641,6 @@
 			buildConfigurations = (
 				52C73E092A8CF34C00C69333 /* Debug */,
 				52C73E0A2A8CF34C00C69333 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		52C73E0B2A8CF34C00C69333 /* Build configuration list for PBXNativeTarget "TTT2UITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				52C73E0C2A8CF34C00C69333 /* Debug */,
-				52C73E0D2A8CF34C00C69333 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -757,6 +673,11 @@
 			productName = FirebaseFirestore;
 		};
 		523D83162A918AAB00C05926 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 523D83132A918AAB00C05926 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
+		528AADD22A9976FB005D1D3E /* FirebaseFirestoreSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 523D83132A918AAB00C05926 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestoreSwift;

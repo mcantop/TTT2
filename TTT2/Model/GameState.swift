@@ -13,7 +13,7 @@ enum GameState: Equatable {
     case waitingForPlayer
     case playerQuit
     
-    func createAlertStrings(gameMode: GameMode, currentPlayer: Player, didLocalPlayerWin: Bool?) -> (title: String, message: String) {
+    func createAlertStrings(gameMode: GameMode, currentPlayer: Player, didLocalPlayerWin: Bool? = nil) -> (title: String, message: String) {
         let title: String
         let message: String
         

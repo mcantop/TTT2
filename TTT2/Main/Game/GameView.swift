@@ -7,15 +7,6 @@
 
 import SwiftUI
 
-private enum PlayerStatistic: CaseIterable, Identifiable {
-    case player1
-    case player2
-    
-    var id: UUID {
-        return .init()
-    }
-}
-
 struct GameView: View {
     @Environment(\.dismiss) var dismiss
     
@@ -160,7 +151,21 @@ struct GameView: View {
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            GameView(viewModel: GameViewModel(gameMode: .cpu))
+            GameView(
+                viewModel: GameViewModel(
+                    gameMode: .cpu,
+                    onlineRepository: OnlineGameRepository()
+                )
+            )
         }
+    }
+}
+
+private enum PlayerStatistic: CaseIterable, Identifiable {
+    case player1
+    case player2
+    
+    var id: UUID {
+        return .init()
     }
 }
